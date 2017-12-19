@@ -2,7 +2,7 @@ package query
 
 import (
 	"errors"
-	"test/couchdbMockQuery/query/rules"
+	"github.com/wearetheledger/go-couchdb-query-engine/query/rules"
 	"reflect"
 	"fmt"
 	"strings"

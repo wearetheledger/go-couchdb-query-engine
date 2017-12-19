@@ -1,7 +1,7 @@
 package test
 
 import (
-	"test/couchdbMockQuery/query"
+	"github.com/wearetheledger/go-couchdb-query-engine/query"
 	"testing"
 )
 
