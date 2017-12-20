@@ -1,4 +1,4 @@
-package rules
+package test
 
 import (
 	"github.com/wearetheledger/go-couchdb-query-engine/query"

@@ -1,18 +1,18 @@
-package rules
+package test
 
 import (
 	"github.com/wearetheledger/go-couchdb-query-engine/query"
 	"testing"
 )
 
-func TestSize(t *testing.T) {
+func TestLte(t *testing.T) {
 
-	t.Run("PreviousOwners size should equal 2", func(t *testing.T) {
+	t.Run("Size should be lower than 3", func(t *testing.T) {
 
 		res, err := query.ParseCouchDBQuery(TestData, map[string]interface{}{
 			"selector": map[string]interface{}{
-				"previousOwners": map[string]interface{}{
-					"$size": 2,
+				"size": map[string]interface{}{
+					"$lte": 3,
 				},
 			},
 		})
@@ -21,8 +21,8 @@ func TestSize(t *testing.T) {
 			t.Error(err)
 		}
 
-		if len(res) != 1 {
-			t.Error("Query should have returned 1 results")
+		if len(res) != 2 {
+			t.Error("should have returned 2 result")
 		}
 	})
 }
