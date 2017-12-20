@@ -31,7 +31,7 @@ func TestGt(t *testing.T) {
 		res, err := query.ParseCouchDBQuery(TestData, map[string]interface{}{
 			"selector": map[string]interface{}{
 				"size": map[string]interface{}{
-					"$gt": 0,
+					"$gt": 1,
 				},
 			},
 		})
@@ -40,7 +40,7 @@ func TestGt(t *testing.T) {
 			t.Error(err)
 		}
 
-		if len(res) != 3 {
+		if len(res) != 2 {
 			t.Error("TestGtMultiple should have returned 3 result")
 		}
 	})

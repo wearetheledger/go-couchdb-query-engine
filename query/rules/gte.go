@@ -15,6 +15,8 @@ func (r gte) Match(valA interface{}, valB interface{}) (bool, error) {
 		return valA.(string) >= valB.(string), nil
 	} else if typeOfA.Kind() == reflect.Int && typeOfB.Kind() == reflect.Float64 {
 		return float64(valA.(int)) >= valB.(float64), nil
+	} else if typeOfA.Kind() == reflect.Float64 && typeOfB.Kind() == reflect.Float64 {
+		return valA.(float64) >= valB.(float64), nil
 	} else if typeOfA.Kind() == reflect.String && typeOfB.Kind() == reflect.Int {
 		return float64(getSum(valA.(string))) >= valB.(float64), nil
 	}

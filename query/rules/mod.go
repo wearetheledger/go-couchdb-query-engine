@@ -27,11 +27,11 @@ func (r mod) Match(valA interface{}, valB interface{}) (bool, error) {
 	parsedValB := valB.([]interface{})
 
 	if _, ok := parsedValB[0].(float64); !ok {
-		return false, errors.New("Mod [Divisor, Remainder] must both be integers")
+		return false, errors.New("Mod [Divisor, Remainder] must both be numeric")
 	}
 
 	if _, ok := parsedValB[1].(float64); !ok {
-		return false, errors.New("Mod [Divisor, Remainder] must both be integers")
+		return false, errors.New("Mod [Divisor, Remainder] must both be numeric")
 	}
 
 	divisor := int(parsedValB[0].(float64))
