@@ -1,18 +1,20 @@
-package test
+package rules
 
 import (
 	"github.com/wearetheledger/go-couchdb-query-engine/query"
 	"testing"
 )
 
-func TestGte(t *testing.T) {
+func TestIn(t *testing.T) {
 
-	t.Run("Size should be greater than or equal 3", func(t *testing.T) {
+	t.Run("size should equal one element in array", func(t *testing.T) {
 
 		res, err := query.ParseCouchDBQuery(TestData, map[string]interface{}{
 			"selector": map[string]interface{}{
 				"size": map[string]interface{}{
-					"$gte": 3,
+					"$in": []int{
+						1, 3,
+					},
 				},
 			},
 		})
@@ -22,16 +24,18 @@ func TestGte(t *testing.T) {
 		}
 
 		if len(res) != 2 {
-			t.Error("should have returned 2 result")
+			t.Error("Query should have returned 2 results")
 		}
 	})
 
-	t.Run("Size should be greater than or equal 1", func(t *testing.T) {
+	t.Run("should contain all elements", func(t *testing.T) {
 
 		res, err := query.ParseCouchDBQuery(TestData, map[string]interface{}{
 			"selector": map[string]interface{}{
-				"size": map[string]interface{}{
-					"$gte": 1,
+				"owner": map[string]interface{}{
+					"$in": []string{
+						"alice", "bob", "arnold",
+					},
 				},
 			},
 		})
@@ -41,7 +45,7 @@ func TestGte(t *testing.T) {
 		}
 
 		if len(res) != 3 {
-			t.Error("should have returned 3 result")
+			t.Error("Query should have returned 3 results")
 		}
 	})
 }

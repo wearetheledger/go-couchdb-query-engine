@@ -1,4 +1,4 @@
-package test
+package rules
 
 var TestData = map[string]interface{}{
 	"MARBLE1": map[string]interface{}{

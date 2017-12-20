@@ -1,18 +1,18 @@
-package test
+package rules
 
 import (
 	"github.com/wearetheledger/go-couchdb-query-engine/query"
 	"testing"
 )
 
-func TestSize(t *testing.T) {
+func TestMod(t *testing.T) {
 
-	t.Run("PreviousOwners size should equal 2", func(t *testing.T) {
+	t.Run("Size mod 3 should remain 1", func(t *testing.T) {
 
 		res, err := query.ParseCouchDBQuery(TestData, map[string]interface{}{
 			"selector": map[string]interface{}{
-				"previousOwners": map[string]interface{}{
-					"$size": 2,
+				"size": map[string]interface{}{
+					"$mod": []int{3, 1},
 				},
 			},
 		})

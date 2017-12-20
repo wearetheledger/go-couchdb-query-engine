@@ -1,18 +1,18 @@
-package test
+package rules
 
 import (
 	"github.com/wearetheledger/go-couchdb-query-engine/query"
 	"testing"
 )
 
-func TestLt(t *testing.T) {
+func TestGt(t *testing.T) {
 
-	t.Run("Size should be lower than 3", func(t *testing.T) {
+	t.Run("Size should be greater than 3", func(t *testing.T) {
 
 		res, err := query.ParseCouchDBQuery(TestData, map[string]interface{}{
 			"selector": map[string]interface{}{
 				"size": map[string]interface{}{
-					"$lt": 3,
+					"$gt": 3,
 				},
 			},
 		})
@@ -22,7 +22,7 @@ func TestLt(t *testing.T) {
 		}
 
 		if len(res) != 1 {
-			t.Error("should have returned 1 result")
+			t.Error("TestGtNotEq should have returned 1 result")
 		}
 	})
 
@@ -31,7 +31,7 @@ func TestLt(t *testing.T) {
 		res, err := query.ParseCouchDBQuery(TestData, map[string]interface{}{
 			"selector": map[string]interface{}{
 				"size": map[string]interface{}{
-					"$lt": 0,
+					"$gt": 1,
 				},
 			},
 		})
@@ -40,8 +40,8 @@ func TestLt(t *testing.T) {
 			t.Error(err)
 		}
 
-		if len(res) != 0 {
-			t.Error("should have returned 0 result")
+		if len(res) != 2 {
+			t.Error("TestGtMultiple should have returned 3 result")
 		}
 	})
 }

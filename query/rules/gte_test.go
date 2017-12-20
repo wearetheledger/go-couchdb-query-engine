@@ -1,17 +1,18 @@
-package test
+package rules
 
 import (
 	"github.com/wearetheledger/go-couchdb-query-engine/query"
 	"testing"
 )
 
-func TestNe(t *testing.T) {
+func TestGte(t *testing.T) {
 
-	t.Run("Size should equal 3", func(t *testing.T) {
+	t.Run("Size should be greater than or equal 3", func(t *testing.T) {
+
 		res, err := query.ParseCouchDBQuery(TestData, map[string]interface{}{
 			"selector": map[string]interface{}{
 				"size": map[string]interface{}{
-					"$ne": 3,
+					"$gte": 3,
 				},
 			},
 		})
@@ -21,15 +22,16 @@ func TestNe(t *testing.T) {
 		}
 
 		if len(res) != 2 {
-			t.Error("TestNe should have returned 2 result")
+			t.Error("should have returned 2 result")
 		}
 	})
 
-	t.Run("ObjectType should equal marble", func(t *testing.T) {
+	t.Run("Size should be greater than or equal 1", func(t *testing.T) {
+
 		res, err := query.ParseCouchDBQuery(TestData, map[string]interface{}{
 			"selector": map[string]interface{}{
-				"objectType": map[string]interface{}{
-					"$ne": "MARBLE",
+				"size": map[string]interface{}{
+					"$gte": 1,
 				},
 			},
 		})
@@ -38,8 +40,8 @@ func TestNe(t *testing.T) {
 			t.Error(err)
 		}
 
-		if len(res) != 0 {
-			t.Error("TestNeMultiple should have returned 0 results")
+		if len(res) != 3 {
+			t.Error("should have returned 3 result")
 		}
 	})
 }
