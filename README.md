@@ -33,7 +33,7 @@ The selector query accepts following couchdb operators:
 ## Example code
 ### Data
 
-```
+```golang
 var TestData = map[string]interface{}{
 	"MARBLE1": map[string]interface{}{
 		"objectType": "MARBLE",
@@ -95,7 +95,7 @@ var TestData = map[string]interface{}{
 ```
 
 ### Method
-```
+```golang
 res, err := query.ParseCouchDBQuery(TestData, map[string]interface{}{
 			"selector": map[string]interface{}{
 				"size": map[string]interface{}{
@@ -105,7 +105,7 @@ res, err := query.ParseCouchDBQuery(TestData, map[string]interface{}{
 		})
 ```
 ### Response
-```
+```golang
 StateCouchDBQueryResult{
 	StateCouchDBQueryObject{
 		Key: "MARBLE0",
