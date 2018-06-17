@@ -1,12 +1,13 @@
 package query
 
 import (
-	"errors"
-	"github.com/wearetheledger/go-couchdb-query-engine/query/rules"
-	"reflect"
-	"fmt"
-	"strings"
 	"encoding/json"
+	"errors"
+	"fmt"
+	"reflect"
+	"strings"
+
+	"github.com/wearetheledger/go-couchdb-query-engine/query/rules"
 )
 
 var Registry []rules.IGenericRule
@@ -141,6 +142,8 @@ func ParseCouchDBQueryString(data map[string]interface{}, userQueryString string
 
 func test(data interface{}, userQuery interface{}) (bool, error) {
 
+	last := true
+
 	if canDecend(userQuery) && reflect.TypeOf(userQuery).Kind() == reflect.Map {
 
 		userQuery, ok := userQuery.(map[string]interface{})
@@ -164,23 +167,44 @@ func test(data interface{}, userQuery interface{}) (bool, error) {
 					return false, err1
 				}
 
-				return matched, nil
+				last = last && matched
 
 			} else {
 
 				dvp, dk := resolveSubdocumentQuery(data, k)
 
+				var result bool
+				var err1 error
+
 				if dvp != nil && len(dk) == 1 {
-					return test(dvp[dk[0]], v)
+					result, err1 = test(dvp[dk[0]], v)
+
+				} else {
+					result, err1 = test(nil, v)
 				}
 
-				return test(nil, v)
+				if err1 != nil {
+					return false, err1
+				}
+
+				last = last && result
+
 			}
 		}
 
+		return last, nil
+
 	} else {
 
-		return rules.Eq.Match(data, userQuery)
+		bool, err1 := rules.Eq.Match(data, userQuery)
+
+		if err1 != nil {
+			return false, err1
+		}
+
+		last = last && bool
+
+		return last, nil
 	}
 
 	return false, nil
