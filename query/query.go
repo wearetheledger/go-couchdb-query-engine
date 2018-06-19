@@ -144,6 +144,10 @@ func test(data interface{}, userQuery interface{}) (bool, error) {
 
 	last := true
 
+	if userQuery == nil || data == nil {
+		return false, nil
+	}
+
 	if canDecend(userQuery) && reflect.TypeOf(userQuery).Kind() == reflect.Map {
 
 		userQuery, ok := userQuery.(map[string]interface{})
