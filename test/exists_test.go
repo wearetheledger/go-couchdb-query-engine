@@ -1,8 +1,9 @@
 package test
 
 import (
-	"github.com/wearetheledger/go-couchdb-query-engine/query"
 	"testing"
+
+	"github.com/wearetheledger/go-couchdb-query-engine/query"
 )
 
 func TestExists(t *testing.T) {
