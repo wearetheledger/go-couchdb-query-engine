@@ -196,6 +196,10 @@ func test(data interface{}, userQuery interface{}) (bool, error) {
 
 	} else {
 
+		if userQuery == nil || data == nil {
+			return false, nil
+		}
+
 		bool, err1 := rules.Eq.Match(data, userQuery)
 
 		if err1 != nil {

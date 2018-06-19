@@ -36,6 +36,7 @@ var TestData = map[string]interface{}{
 	"MARBLE3": map[string]interface{}{
 		"objectType": "MARBLE",
 		"owner":      "arnold",
+		"image":      "https://example.com/image.png",
 		"size":       5,
 		"previousOwners": []string{
 			"alice",
@@ -68,4 +69,4 @@ res, err := query.ParseCouchDBQuery(TestData, map[string]interface{}{
 			},
 		},
 	})
- */
+*/
