@@ -111,29 +111,37 @@ func ParseCouchDBQueryString(data map[string]interface{}, userQueryString string
 	var limit = len(response)
 
 	if userQuery["skip"] != nil {
-		skip, ok := userQuery["skip"].(int)
+		skipF64, ok := userQuery["skip"].(float64)
 
 		if ok {
-			skip = skip
+			skip = int(skipF64)
 		} else {
 			return StateCouchDBQueryResult{}, errors.New("Skip must be an integer")
 		}
 	}
 
 	if userQuery["limit"] != nil {
-		limit, ok := userQuery["limit"].(int)
+		limitF64, ok := userQuery["limit"].(float64)
 
 		if ok {
-			limit = limit
+			limit = int(limitF64)
 		} else {
 			return StateCouchDBQueryResult{}, errors.New("Limit must be an integer")
 		}
 
 	}
 
-	response = response[skip:limit]
+	if skip < len(response) {
+		response = response[skip:]
+	} else {
+		return StateCouchDBQueryResult{}, nil
+	}
 
-	return response, nil
+	if limit > len(response) {
+		limit = len(response)
+	}
+
+	return response[:limit], nil
 
 }
 
