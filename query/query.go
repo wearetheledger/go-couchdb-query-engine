@@ -168,7 +168,9 @@ func test(data interface{}, userQuery interface{}) (bool, error) {
 				if err != nil {
 					return false, err
 				}
-
+				if rule.GetName() != "$exists" && data == nil {
+					return false, nil
+				}
 				matched, err1 := rule.Match(data, v)
 
 				if err1 != nil {
@@ -197,6 +199,9 @@ func test(data interface{}, userQuery interface{}) (bool, error) {
 
 				last = last && result
 
+			}
+			if !last {
+				return false, nil
 			}
 		}
 
